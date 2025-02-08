@@ -13,7 +13,7 @@ export class BookingsService {
     @InjectRepository(Carpenter) private carpenterRepo: Repository<Carpenter>,
   ) {}
 
-  // ✅ Get all bookings with related slot & carpenter info
+  //  Get all bookings with related slot & carpenter info
   async getAllBookings(): Promise<Booking[]> {
     const bookings = await this.bookingRepo.find({
       relations: ['slot', 'slot.carpenter'], // Ensure slot and carpenter data are included
@@ -26,7 +26,7 @@ export class BookingsService {
     }));
   }
 
-  // ✅ Get bookings for a specific user
+  //  Get bookings for a specific user
   async getBookingsByUser(userId: number): Promise<any[]> {
     const bookings = await this.bookingRepo.find({
       where: { user_id: userId },
@@ -47,33 +47,31 @@ export class BookingsService {
   }
 
   
-  // ✅ Book a slot
+  //  Book a slot
   async bookSlot(userId: number, slotId: number): Promise<Booking> {
     const slot = await this.slotRepo.findOne({ where: { id: slotId }, relations: ['carpenter'] });
 
     if (!slot) throw new NotFoundException('Slot not found');
     if (slot.status === 'booked') throw new BadRequestException('Slot is already booked');
 
-    // Mark the slot as booked
     slot.status = 'booked';
     await this.slotRepo.save(slot);
 
-    // Create and save the booking
     const newBooking = this.bookingRepo.create({
       user_id: userId,
-      slot: slot,  // Ensure slot is attached correctly
+      slot: slot, 
       status: 'booked',
     });
 
     return this.bookingRepo.save(newBooking);
   }
 
-  // ✅ Delete a booking
-  async deleteBooking(id: number): Promise<void> {
-    const booking = await this.bookingRepo.findOne({ where: { id }, relations: ['slot'] });
+  //  Delete a booking
+  async deleteBooking(bookingId: number): Promise<void> {
+    const booking = await this.bookingRepo.findOne({ where: { id: bookingId }, relations: ['slot'] });
 
     if (!booking) {
-      throw new NotFoundException(`Booking with ID ${id} not found.`);
+      throw new NotFoundException(`Booking with ID ${bookingId} not found.`);
     }
 
     // Make slot available again
@@ -82,8 +80,7 @@ export class BookingsService {
       await this.slotRepo.save(booking.slot);
     }
 
-    // Delete the booking
-    await this.bookingRepo.delete(id);
+    await this.bookingRepo.delete(bookingId);
   }
 
   //  Cancel a booking
@@ -93,11 +90,9 @@ export class BookingsService {
     if (!booking) throw new NotFoundException('Booking not found');
     if (booking.status === 'canceled') throw new BadRequestException('Booking is already canceled');
 
-    // Mark booking as canceled
     booking.status = 'canceled';
     await this.bookingRepo.save(booking);
 
-    // Mark slot as available again
     if (booking.slot) {
       booking.slot.status = 'available';
       await this.slotRepo.save(booking.slot);
@@ -113,7 +108,6 @@ export class BookingsService {
     if (!booking) throw new NotFoundException('Booking not found');
     if (booking.status === 'confirmed') throw new BadRequestException('Booking is already confirmed');
 
-    // Mark booking as confirmed
     booking.status = 'confirmed';
     await this.bookingRepo.save(booking);
 

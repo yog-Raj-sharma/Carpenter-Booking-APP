@@ -3,11 +3,11 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const BookingPage = () => {
-  const [slots, setSlots] = useState([]); // Holds all slots
-  const [carpenters, setCarpenters] = useState([]); // Holds list of carpenters
-  const [selectedDate, setSelectedDate] = useState(new Date()); // Holds the selected date
-  const [confirmingSlot, setConfirmingSlot] = useState(null); // Holds the slot being confirmed
-  const [confirmationMessage, setConfirmationMessage] = useState(null); // Holds the confirmation message
+  const [slots, setSlots] = useState([]);
+  const [carpenters, setCarpenters] = useState([]); 
+  const [selectedDate, setSelectedDate] = useState(new Date()); 
+  const [confirmingSlot, setConfirmingSlot] = useState(null); 
+  const [confirmationMessage, setConfirmationMessage] = useState(null); 
 
   useEffect(() => {
     fetchSlots();
@@ -39,7 +39,7 @@ const BookingPage = () => {
   const bookSlot = (slotId) => {
     axios.post('http://localhost:3000/bookings', { user_id: 1234, slot_id: slotId, status: 'booked' })
       .then(() => {
-        setSlots(slots.filter(slot => slot.id !== slotId)); // Remove booked slot from state
+        setSlots(slots.filter(slot => slot.id !== slotId)); 
         setConfirmingSlot(null);
         setConfirmationMessage("You can still review your booking.");
         setTimeout(() => setConfirmationMessage(null), 2000);

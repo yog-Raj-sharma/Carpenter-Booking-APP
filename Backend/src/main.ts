@@ -12,13 +12,13 @@ async function bootstrap() {
       await dataSource.initialize();
       console.log(' Database connection is successful!');
     } catch (error) {
-      console.error('❌ Database connection failed:', error);
+      console.error(' Database connection failed:', error);
     }
   } else {
     console.log(' Database is already connected!');
   }
   
-  app.enableCors(); // 
+  app.enableCors(); 
 
   await app.listen(3000);
 }

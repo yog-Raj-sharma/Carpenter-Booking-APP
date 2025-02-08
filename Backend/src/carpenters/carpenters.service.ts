@@ -12,9 +12,8 @@ export class CarpentersService {
 
   //  Fetch all carpenters with slots
   async getAllCarpenters(): Promise<Carpenter[]> {
-  return this.carpenterRepository.find(); // Fetch only carpenters, no slots
+  return this.carpenterRepository.find(); 
 }
-
 
   //  Fetch a single carpenter by ID
   async getCarpenterById(id: number): Promise<Carpenter> {

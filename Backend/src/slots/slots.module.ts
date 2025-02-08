@@ -6,7 +6,7 @@ import { SlotService } from './slots.service';
 import { SlotsController } from './slots.controller';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Slot, Carpenter])], //  Ensure Slot is imported
+  imports: [TypeOrmModule.forFeature([Slot, Carpenter])],
   providers: [SlotService],
   controllers: [SlotsController],
   exports: [SlotService],

@@ -10,28 +10,28 @@ const ReviewPage = () => {
   }, []);
 
   const fetchBookings = async () => {
-    try {
-      const { data: bookingsData } = await axios.get("http://localhost:3000/bookings");
-      setBookings(bookingsData);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  try {
+    const { data: bookingsData } = await axios.get("http://localhost:3000/bookings");
+    //console.log("Fetched Bookings:", bookingsData); // Debugging log
+    setBookings(bookingsData);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
+
 
   const confirmBooking = async (bookingId, slotId) => {
     try {
-      // ✅ Instantly move booking to "Confirmed" in UI
+      //  Instantly move booking to "Confirmed" in UI
       setBookings((prevBookings) =>
         prevBookings.map((booking) =>
           booking.id === bookingId ? { ...booking, status: "confirmed" } : booking
         )
       );
-
-      // ✅ Send API request to update the backend
+      
       await axios.patch(`http://localhost:3000/bookings/${bookingId}/confirm`);
       await axios.patch(`http://localhost:3000/slots/${slotId}/confirm`);
 
-      // ✅ Optionally, fetch updated data from API to ensure consistency
       fetchBookings();
     } catch (error) {
       console.error("Error confirming booking:", error);
@@ -46,7 +46,8 @@ const ReviewPage = () => {
     } catch (error) {
       console.error("Error cancelling booking:", error);
     }
-  };
+};
+
 
   return (
     <div className="container mt-5">

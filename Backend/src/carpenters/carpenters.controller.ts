@@ -24,7 +24,7 @@ export class CarpentersController {
       return await this.carpentersService.createCarpenter(name);
     } catch (error) {
       if (error instanceof ConflictException) {
-        throw error; // Rethrow ConflictException
+        throw error; 
       }
       throw new NotFoundException('Could not create carpenter');
     }

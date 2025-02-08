@@ -10,12 +10,12 @@ export class Slot {
   carpenter: Carpenter;
 
   @Column()
-  start_time: string;  // Example: "09:00", "10:00", etc.
+  start_time: string;  
 
   @Column({ type: 'date' })
-  dates: string;  // Make sure this is correctly typed
+  dates: string;  
 
   @Column({ default: 'available' })
-  status: string;  // "available" or "booked"
+  status: string;  
 }
 

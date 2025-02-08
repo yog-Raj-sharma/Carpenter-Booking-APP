@@ -7,9 +7,9 @@ import Review from './review';
 
 export default function NavBar() {
   const [darkMode, setDarkMode] = useState(true);
-  const [activeComponent, setActiveComponent] = useState(null);
+  const [activeComponent, setActiveComponent] = useState('home');
   const [dateTime, setDateTime] = useState(new Date());
-  const [hasPendingBookings, setHasPendingBookings] = useState(false); // Track pending bookings
+  const [hasPendingBookings, setHasPendingBookings] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -30,7 +30,7 @@ export default function NavBar() {
   const checkPendingBookings = async () => {
     try {
       const { data: bookings } = await axios.get('http://localhost:3000/bookings');
-      const pendingBookings = bookings.some(booking => booking.status === 'booked'); // Check if any booking is pending
+      const pendingBookings = bookings.some(booking => booking.status === 'booked'); 
       setHasPendingBookings(pendingBookings);
     } catch (error) {
       console.error("Error fetching bookings:", error);
