@@ -7,7 +7,7 @@ async function bootstrap() {
   
   const dataSource = app.get(DataSource);
 
-  if (!dataSource.isInitialized) {  //  Check if already initialized
+  if (!dataSource.isInitialized) {  
     try {
       await dataSource.initialize();
       console.log(' Database connection is successful!');
