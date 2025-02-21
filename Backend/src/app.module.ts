@@ -1,4 +1,5 @@
- {/*import { Module } from '@nestjs/common';
+{/* 
+  import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SlotsModule } from './slots/slots.module';
 import { CarpentersModule } from './carpenters/carpenters.module';
@@ -24,7 +25,7 @@ import { CronModule } from './cron/cron.module';
   ],
 })
 export class AppModule {} */}
-
+ 
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
